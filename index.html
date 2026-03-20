@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Workflow Guide — Activist Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0A0A0A;
+    --white: #FAFAF7;
+    --cream: #F5F0E8;
+    --yellow: #E8D84B;
+    --yellow-dark: #C4B52A;
+    --gray-light: #EFEFEB;
+    --gray-mid: #B8B8B0;
+    --gray-text: #5A5A52;
+    --red: #E03A2F;
+    --border: #D8D8D0;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-head: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    background: var(--white);
+    color: var(--black);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* === HEADER === */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1.5px solid var(--black);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo-text {
+    font-family: var(--font-display);
+    font-size: 20px;
+    letter-spacing: 0.04em;
+    color: var(--black);
+    line-height: 1;
+  }
+  .logo-text span {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray-text);
+    margin-top: 1px;
+  }
+  .year-badge {
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: var(--gray-text);
+  }
+
+  /* === HERO === */
+  .hero {
+    background: var(--black);
+    color: var(--white);
+    padding: 48px 20px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 200px; height: 200px;
+    background: var(--yellow);
+    border-radius: 50%;
+    opacity: 0.12;
+  }
+  .hero-eyebrow {
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 12px;
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 15vw, 72px);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+  .hero h1 .accent {
+    color: var(--yellow);
+    display: block;
+  }
+  .hero-subtitle {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 14px;
+    color: #AAAAA0;
+    margin-top: 14px;
+    margin-bottom: 28px;
+    line-height: 1.5;
+    max-width: 280px;
+  }
+
+  /* === MODE TOGGLE === */
+  .mode-toggle {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  .mode-btn {
+    flex: 1;
+    padding: 12px 10px;
+    border: 1.5px solid var(--white);
+    background: transparent;
+    color: var(--white);
+    font-family: var(--font-head);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 2px;
+  }
+  .mode-btn.active {
+    background: var(--yellow);
+    border-color: var(--yellow);
+    color: var(--black);
+  }
+  .mode-btn:not(.active):hover {
+    background: rgba(255,255,255,0.08);
+  }
+
+  /* === CONTENT VIEWS === */
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* === SECTION WRAPPER === */
+  .section {
+    padding: 32px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section:last-child { border-bottom: none; }
+
+  /* === STEP PILL === */
+  .step-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--yellow);
+    color: var(--black);
+    padding: 4px 12px 4px 8px;
+    border-radius: 100px;
+    font-family: var(--font-head);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .step-pill .num {
+    background: var(--black);
+    color: var(--yellow);
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px;
+    font-weight: 800;
+  }
+
+  /* === HEADINGS === */
+  h2.section-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 10vw, 48px);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    color: var(--black);
+    margin-bottom: 12px;
+  }
+  h3.card-title {
+    font-family: var(--font-head);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 6px;
+  }
+  .section-desc {
+    font-size: 14px;
+    color: var(--gray-text);
+    line-height: 1.65;
+    margin-bottom: 20px;
+  }
+
+  /* === INFO CARD === */
+  .info-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px;
+    margin-bottom: 14px;
+  }
+  .info-card.yellow {
+    background: var(--yellow);
+    border-color: var(--yellow-dark);
+  }
+  .info-card.dark {
+    background: var(--black);
+    color: var(--white);
+    border-color: var(--black);
+  }
+  .info-card.dark .card-title { color: var(--yellow); }
+  .info-card p {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--gray-text);
+  }
+  .info-card.yellow p, .info-card.yellow .card-title { color: var(--black); }
+  .info-card.dark p { color: #CCCCBB; }
+
+  /* === TAG ROW === */
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 12px 0;
+  }
+  .tag {
+    background: var(--gray-light);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-family: var(--font-head);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--black);
+  }
+  .tag.accent { background: var(--yellow); border-color: var(--yellow-dark); }
+  .tag.dark { background: var(--black); color: var(--white); border-color: var(--black); }
+
+  /* === IMAGE PLACEHOLDER === */
+  .img-placeholder {
+    width: 100%;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1.5px dashed var(--border);
+    margin: 14px 0;
+    position: relative;
+    background: var(--gray-light);
+  }
+  .img-placeholder img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .img-placeholder-empty {
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .img-placeholder-empty .dir {
+    font-family: monospace;
+    font-size: 11px;
+    color: var(--gray-mid);
+    background: var(--white);
+    padding: 3px 8px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+  }
+  .img-placeholder-empty .label {
+    font-size: 12px;
+    color: var(--gray-mid);
+    font-style: italic;
+  }
+  .img-placeholder-empty .icon {
+    font-size: 24px;
+    opacity: 0.35;
+  }
+
+  /* === TOOL ROW === */
+  .tool-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--gray-light);
+  }
+  .tool-row:last-child { border-bottom: none; }
+  .tool-icon {
+    width: 40px; height: 40px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+    background: var(--gray-light);
+    border: 1px solid var(--border);
+  }
+  .tool-info h4 {
+    font-family: var(--font-head);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 3px;
+  }
+  .tool-info p {
+    font-size: 12.5px;
+    color: var(--gray-text);
+    line-height: 1.55;
+  }
+  .tool-info .role-tag {
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    font-family: var(--font-head);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--gray-text);
+    background: var(--gray-light);
+    padding: 2px 7px;
+    border-radius: 3px;
+  }
+
+  /* === FLOW ARROW === */
+  .flow-arrow {
+    text-align: center;
+    color: var(--gray-mid);
+    font-size: 20px;
+    padding: 4px 0;
+    letter-spacing: 0;
+  }
+
+  /* === METRIC ROW === */
+  .metric-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 16px 0;
+  }
+  .metric-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 12px;
+    text-align: center;
+  }
+  .metric-card .num {
+    font-family: var(--font-display);
+    font-size: 34px;
+    letter-spacing: 0.02em;
+    color: var(--black);
+    line-height: 1;
+  }
+  .metric-card .unit { color: var(--red); }
+  .metric-card .label {
+    font-size: 11px;
+    color: var(--gray-text);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  /* === CODE BLOCK === */
+  .code-block {
+    background: #1A1A18;
+    border-radius: 6px;
+    padding: 16px;
+    margin: 12px 0;
+    overflow-x: auto;
+    position: relative;
+  }
+  .code-block pre {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.7;
+    color: #E2E2D8;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .code-block .code-label {
+    font-family: var(--font-head);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .copy-btn {
+    position: absolute;
+    top: 12px; right: 12px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #AAA;
+    font-family: var(--font-head);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .copy-btn:hover, .copy-btn.copied {
+    background: var(--yellow);
+    color: var(--black);
+    border-color: var(--yellow);
+  }
+  .highlight { color: #E8D84B; }
+  .highlight-green { color: #7EC88E; }
+  .highlight-blue { color: #7ECCE8; }
+  .highlight-comment { color: #666; }
+
+  /* === EVALUATION TABLE === */
+  .eval-row {
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    gap: 10px;
+    align-items: start;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--gray-light);
+    font-size: 13px;
+  }
+  .eval-row:last-child { border-bottom: none; }
+  .eval-label {
+    font-family: var(--font-head);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gray-text);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .eval-text { color: var(--black); line-height: 1.5; }
+  .eval-score {
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: var(--red);
+    white-space: nowrap;
+  }
+  .eval-score.green { color: #2A8A3E; }
+
+  /* === CTA === */
+  .cta-section {
+    background: var(--black);
+    padding: 40px 20px;
+    text-align: center;
+  }
+  .cta-section h2 {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 12vw, 56px);
+    color: var(--white);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
+  }
+  .cta-section h2 .yellow { color: var(--yellow); }
+  .cta-section p {
+    font-size: 13px;
+    color: #888880;
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--yellow);
+    color: var(--black);
+    padding: 14px 28px;
+    border-radius: 100px;
+    text-decoration: none;
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(232,216,75,0.3);
+  }
+  .tiktok-handle {
+    margin-top: 14px;
+    font-size: 13px;
+    color: #666;
+  }
+  .tiktok-handle strong { color: var(--gray-mid); }
+
+  /* === FOOTER === */
+  footer {
+    padding: 20px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 11px;
+    color: var(--gray-mid);
+    font-family: var(--font-head);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* === DIVIDER === */
+  .hr { height: 1px; background: var(--border); margin: 18px 0; }
+  .hr.thick { height: 2px; background: var(--black); }
+
+  /* === SCROLL INDICATOR === */
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 0%;
+    height: 3px;
+    background: var(--yellow);
+    z-index: 200;
+    transition: width 0.1s linear;
+  }
+
+  /* === QUOTE BLOCK === */
+  .quote-block {
+    border-left: 3px solid var(--yellow);
+    padding: 10px 16px;
+    background: var(--cream);
+    border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--black);
+    line-height: 1.6;
+  }
+  .quote-block cite {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    font-style: normal;
+    font-family: var(--font-head);
+    font-weight: 700;
+    color: var(--gray-text);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* === CHECKLIST === */
+  .checklist { list-style: none; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 7px 0;
+    font-size: 14px;
+    color: var(--black);
+    line-height: 1.5;
+    border-bottom: 1px solid var(--gray-light);
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li::before {
+    content: '→';
+    color: var(--yellow-dark);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* === ANIMATION === */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .section { animation: fadeUp 0.4s ease both; }
+
+  /* === ACCORDION === */
+  .accordion-item {
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .accordion-toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background: var(--cream);
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: var(--font-head);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--black);
+    transition: background 0.15s;
+  }
+  .accordion-toggle.open { background: var(--yellow); }
+  .accordion-toggle .chevron {
+    font-size: 10px;
+    transition: transform 0.2s;
+    color: var(--gray-text);
+  }
+  .accordion-toggle.open .chevron { transform: rotate(180deg); color: var(--black); }
+  .accordion-body {
+    display: none;
+    padding: 16px;
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    font-size: 13.5px;
+    color: var(--gray-text);
+    line-height: 1.65;
+  }
+  .accordion-body.open { display: block; }
+
+  /* === SMALL UTILITIES === */
+  .text-sm { font-size: 12px; color: var(--gray-text); }
+  .text-red { color: var(--red); }
+  .mt-8 { margin-top: 8px; }
+  .mt-16 { margin-top: 16px; }
+  .mt-24 { margin-top: 24px; }
+  .mb-8 { margin-bottom: 8px; }
+  .fw-700 { font-weight: 700; }
+  .flex-center { display: flex; align-items: center; gap: 8px; }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="logo-text">
+    ACTIVIST
+    <span>Intelligence · 2026</span>
+  </div>
+  <div class="year-badge">AI GUIDE</div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Think. Question. Act.</div>
+  <h1>BUILD YOUR<br><span class="accent">LANDING PAGE</span><br>WITH AI</h1>
+  <p class="hero-subtitle">Dari ide lu → riset AI → desain Claude → live di laptop. No cap, no fluff.</p>
+
+  <div class="mode-toggle">
+    <button class="mode-btn active" onclick="switchMode('explain', this)">📖 Pelajari Dulu</button>
+    <button class="mode-btn" onclick="switchMode('example', this)">⚡ Langsung Contoh</button>
+  </div>
+</div>
+
+<!-- ===== MODE: EXPLAIN ===== -->
+<div id="view-explain" class="view active">
+
+  <!-- STEP 0: GEN Z PSYCHOLOGY -->
+  <div class="section">
+    <div class="step-pill"><span class="num">0</span> Psychology</div>
+    <h2 class="section-title">KENAPA<br>LO SCROLL<br>TERUS?</h2>
+    <p class="section-desc">Sebelum belajar workflow, penting banget ngerti cara kerja otak Gen Z — biar konten lo (dan landing page lo) nggak langsung di-skip.</p>
+
+    <div class="quote-block">
+      Gen Z bukan gak fokus. Mereka punya <strong>sistem filter kecepatan tinggi</strong>. Kalo kontennya terasa relevan, mereka bisa fokus berjam-jam.
+      <cite>ContentGrip, 2026</cite>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="num">8<span class="unit">s</span></div>
+        <div class="label">Waktu filter sebelum scroll away</div>
+      </div>
+      <div class="metric-card">
+        <div class="num">1.3<span class="unit">s</span></div>
+        <div class="label">Waktu evaluasi iklan/konten baru</div>
+      </div>
+      <div class="metric-card">
+        <div class="num">30<span class="unit">%</span></div>
+        <div class="label">Peningkatan engagement dengan visual</div>
+      </div>
+      <div class="metric-card">
+        <div class="num">45<span class="unit">%</span></div>
+        <div class="label">Task completion naik kalau dibagi jadi chunk kecil</div>
+      </div>
+    </div>
+
+    <div class="info-card yellow">
+      <h3 class="card-title">💡 Implikasi untuk Landing Page</h3>
+      <p>Hook dalam 3 detik pertama. Visual > teks panjang. Chunk kecil-kecil. Satu CTA yang jelas. Authentic beats polished.</p>
+    </div>
+
+    <div class="hr"></div>
+
+    <h3 class="card-title">Formula Konten Anti-Bosan Gen Z</h3>
+    <ul class="checklist">
+      <li>Hook visual atau bold statement di atas the fold</li>
+      <li>Chunk pendek — maks 2–3 kalimat per blok</li>
+      <li>Gunakan angka, emoji, dan visual break</li>
+      <li>Progressive disclosure — kasih pilihan untuk lanjut atau skip</li>
+      <li>Authentic tone — ngobrol, bukan presentasi</li>
+      <li>Satu CTA utama yang mencolok</li>
+    </ul>
+  </div>
+
+  <!-- STEP 1: INDUSTRI -->
+  <div class="section">
+    <div class="step-pill"><span class="num">1</span> Industri</div>
+    <h2 class="section-title">BISNIS<br>PERTAMA<br>GEN Z</h2>
+    <p class="section-desc">Berdasarkan data dan tren 2025–2026, ini satu industri yang paling konkret, low-cost, dan native Gen Z.</p>
+
+    <div class="info-card dark">
+      <h3 class="card-title">🧥 Online Thrift & Vintage Store</h3>
+      <p>Paling banyak dipilih Gen Z sebagai bisnis pertama. Mulai dari Depop, Instagram, sampai website sendiri. Modal awal kecil, kurasi produk bisa pakai taste sendiri, dan market-nya nggak ada habisnya.</p>
+    </div>
+
+    <div class="tag-row">
+      <span class="tag accent">Low Capital</span>
+      <span class="tag">Social-Native</span>
+      <span class="tag">Sustainable</span>
+      <span class="tag">Kurasi = Brand</span>
+    </div>
+
+    <div class="img-placeholder">
+      <div class="img-placeholder-empty">
+        <div class="icon">🧥</div>
+        <div class="dir">images/gen-z-thrift-store.jpg</div>
+        <div class="label">Contoh tampilan online thrift store Gen Z</div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-toggle" onclick="toggleAccordion(this)">
+        Kenapa bukan food & beverage?
+        <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        F&B memang populer (cafes, plant-based), tapi modal awalnya lebih besar dan ada risiko fisik. Thrift store bisa 100% online dari hari pertama, cocok untuk testing sebelum invest lebih besar.
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-toggle" onclick="toggleAccordion(this)">
+        Kenapa bukan content creation?
+        <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        Content creation butuh audience dulu, baru monetize. Thrift store bisa langsung jual dari hari pertama. Tapi keduanya bisa dikombinasi — banyak thrift store sukses karena konten TikTok-nya.
+      </div>
+    </div>
+
+    <div class="hr"></div>
+
+    <p class="section-desc">Yang dibutuhkan bisnis ini:</p>
+    <ul class="checklist">
+      <li>Landing page mobile-first (mayoritas pembeli Gen Z buka HP)</li>
+      <li>Sistem pemesanan yang simple (form WhatsApp / direct order)</li>
+      <li>Galeri produk yang clean dan aesthetic</li>
+      <li>Brand identity yang kuat — nama, warna, font</li>
+    </ul>
+  </div>
+
+  <!-- STEP 2: GEN Z VISUAL -->
+  <div class="section">
+    <div class="step-pill"><span class="num">2</span> Visual</div>
+    <h2 class="section-title">SELERA<br>VISUAL<br>GEN Z</h2>
+    <p class="section-desc">Gen Z punya estetika yang sangat spesifik. Kalau landing page lo nggak vibes, mereka cabut dalam detik.</p>
+
+    <div class="info-card">
+      <h3 class="card-title">Tren Visual 2025–2026</h3>
+      <div class="tag-row">
+        <span class="tag dark">Y2K Revival</span>
+        <span class="tag">Brutalist Type</span>
+        <span class="tag accent">Maximalist Minimal</span>
+        <span class="tag">Muted Earth Tones</span>
+        <span class="tag">Raw & Authentic</span>
+        <span class="tag dark">High Contrast</span>
+        <span class="tag">Grain Texture</span>
+      </div>
+    </div>
+
+    <div class="img-placeholder">
+      <div class="img-placeholder-empty">
+        <div class="icon">🎨</div>
+        <div class="dir">images/gen-z-visual-moodboard.jpg</div>
+        <div class="label">Moodboard estetika Gen Z 2026</div>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+
+    <h3 class="card-title mt-8">Untuk Thrift Store Niche:</h3>
+    <ul class="checklist mt-8">
+      <li>Foto dengan grain texture / film look</li>
+      <li>Warna: cream, off-white, muted green, terracotta, atau hitam pekat</li>
+      <li>Typography: bold serif display + clean sans-serif</li>
+      <li>Layout asimetris — bukan kotak-kotak boring</li>
+      <li>White space yang generous</li>
+      <li>Satu bold color accent sebagai signature</li>
+    </ul>
+
+    <div class="quote-block">
+      Authenticity over polish. Gen Z langsung tau mana yang fake.
+      <cite>ContentGrip Study, 2026</cite>
+    </div>
+  </div>
+
+  <!-- STEP 3: WORKFLOW -->
+  <div class="section">
+    <div class="step-pill"><span class="num">3</span> Workflow</div>
+    <h2 class="section-title">AI<br>BUILD<br>FLOW</h2>
+    <p class="section-desc">4 tahap dari ide ke landing page yang jalan di laptop lo. Efisien, sistematis, dan tetap lo yang control creative-nya.</p>
+
+    <div class="info-card yellow">
+      <h3 class="card-title">⚡ Prinsip Utama</h3>
+      <p>AI itu asisten, bukan pengganti ide lo. Lo yang kasih arah, AI yang eksekusi detail. Kreativitas tetap 100% punya lo.</p>
+    </div>
+
+    <!-- Tool Flow -->
+    <div class="hr"></div>
+    <h3 class="card-title">Stack yang Digunakan</h3>
+
+    <div class="tool-row">
+      <div class="tool-icon">🧠</div>
+      <div class="tool-info">
+        <h4>Ide Lo Sendiri</h4>
+        <p>Nentuin bisnis, brand name, produk, target market, dan "feeling" yang lo mau.</p>
+        <span class="role-tag">Creative Direction</span>
+      </div>
+    </div>
+
+    <div class="flow-arrow">↓</div>
+
+    <div class="tool-row">
+      <div class="tool-icon">🔍</div>
+      <div class="tool-info">
+        <h4>AI / Web Research</h4>
+        <p>Cari referensi visual, kompetitor, dan konten untuk website. Bisa pakai Google, Pinterest, Dribbble.</p>
+        <span class="role-tag">Research & References</span>
+      </div>
+    </div>
+
+    <div class="flow-arrow">↓</div>
+
+    <div class="tool-row">
+      <div class="tool-icon">✨</div>
+      <div class="tool-info">
+        <h4>Gemini Pro (Reasoning Mode)</h4>
+        <p>Kasih brief mentah lo, minta Gemini untuk expand jadi prompt yang kaya detail — spesifik soal layout, warna, fungsi, interaksi.</p>
+        <span class="role-tag">Prompt Architect</span>
+      </div>
+    </div>
+
+    <div class="flow-arrow">↓</div>
+
+    <div class="tool-row">
+      <div class="tool-icon">🤖</div>
+      <div class="tool-info">
+        <h4>Claude Sonnet 4.6 Extended</h4>
+        <p>Paste prompt dari Gemini ke Claude di claude.ai. Minta build HTML/CSS/JS lengkap — UI, UX, functions, animasi, form order.</p>
+        <span class="role-tag">Build UI/UX + Logic</span>
+      </div>
+    </div>
+
+    <div class="flow-arrow">↓</div>
+
+    <div class="tool-row">
+      <div class="tool-icon">💻</div>
+      <div class="tool-info">
+        <h4>Run di Laptop</h4>
+        <p>Save file .html, buka di browser. Atau upload ke GitHub Pages / Netlify buat live preview.</p>
+        <span class="role-tag">Local Development</span>
+      </div>
+    </div>
+
+    <div class="img-placeholder">
+      <div class="img-placeholder-empty">
+        <div class="icon">⚙️</div>
+        <div class="dir">images/workflow-diagram.jpg</div>
+        <div class="label">Diagram visual alur kerja AI workflow</div>
+      </div>
+    </div>
+
+    <div class="hr thick"></div>
+
+    <!-- Detail tiap step -->
+    <h3 class="card-title mt-16">Detail Per Tahap</h3>
+
+    <div class="accordion-item">
+      <button class="accordion-toggle" onclick="toggleAccordion(this)">
+        Tahap 1 — Riset Referensi
+        <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        Cari 5–10 contoh thrift store website yang lo suka. Pinterest untuk moodboard warna & layout. Dribbble untuk UI inspiration. Screenshot semua, simpan di folder. Ini bahan utama lo kasih ke Gemini.
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-toggle" onclick="toggleAccordion(this)">
+        Tahap 2 — Brief ke Gemini Pro
+        <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        Buka gemini.google.com, aktifkan mode penalaran/pro. Ceritakan bisnis lo secara lengkap: nama brand, produk, target market, referensi visual yang lo suka, fungsi apa yang dibutuhkan (galeri, form order, dll). Minta Gemini generate "detailed UI/UX prompt for Claude AI."
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-toggle" onclick="toggleAccordion(this)">
+        Tahap 3 — Build di Claude (Extended)
+        <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        Buka claude.ai, pilih model Sonnet 4.6 dengan fitur Extended Thinking aktif. Paste prompt dari Gemini. Tambahkan: "Build as single HTML file, mobile-first, with embedded CSS and JS. Include order form that sends to WhatsApp." Iterate jika perlu — minta revisi per section.
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-toggle" onclick="toggleAccordion(this)">
+        Tahap 4 — Test & Deploy
+        <span class="chevron">▼</span>
+      </button>
+      <div class="accordion-body">
+        Copy code dari Claude, simpan sebagai index.html. Buka di Chrome/Safari di laptop. Inspect dengan DevTools (F12) untuk cek mobile view. Kalau udah oke, drag & drop ke Netlify.com atau push ke GitHub Pages untuk live URL gratis.
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4: EVALUASI -->
+  <div class="section">
+    <div class="step-pill"><span class="num">4</span> Evaluasi</div>
+    <h2 class="section-title">EFISIENSI<br>vs<br>EFEKTIF</h2>
+    <p class="section-desc">Kenyataan workflow ini vs cara tradisional belajar coding sendiri.</p>
+
+    <div class="eval-row">
+      <div class="eval-label">Waktu</div>
+      <div class="eval-text">Total 2–4 jam dari brief ke website jalan. Vs 2–3 bulan belajar HTML/CSS dari scratch.</div>
+      <div class="eval-score green">A+</div>
+    </div>
+    <div class="eval-row">
+      <div class="eval-label">Kontrol</div>
+      <div class="eval-text">Lo tetap kontrol arah kreatif. AI cuma eksekusi. Tapi butuh iterasi untuk hasil yang tepat.</div>
+      <div class="eval-score">B+</div>
+    </div>
+    <div class="eval-row">
+      <div class="eval-label">Akurasi</div>
+      <div class="eval-text">Semakin detail prompt lo, semakin akurat hasilnya. Gemini sbg "penerjemah" ide → prompt sangat membantu.</div>
+      <div class="eval-score green">A</div>
+    </div>
+    <div class="eval-row">
+      <div class="eval-label">Skill</div>
+      <div class="eval-text">Lo butuh ngerti basic HTML buat troubleshoot. 1–2 jam baca MDN cukup untuk mulai.</div>
+      <div class="eval-score">B</div>
+    </div>
+    <div class="eval-row">
+      <div class="eval-label">Skalabilitas</div>
+      <div class="eval-text">Website static cocok untuk MVP. Untuk fitur kompleks (payment gateway, login), perlu upgrade ke framework atau no-code tools.</div>
+      <div class="eval-score">B</div>
+    </div>
+
+    <div class="info-card dark mt-16">
+      <h3 class="card-title">✅ Verdict</h3>
+      <p>Untuk testing ide bisnis secepat mungkin dengan effort minimal, workflow ini 9/10. Yang paling penting: lo tetap paham apa yang dibangun — bukan cuma copy-paste tanpa ngerti.</p>
+    </div>
+  </div>
+
+</div><!-- end view-explain -->
+
+<!-- ===== MODE: EXAMPLE ===== -->
+<div id="view-example" class="view">
+
+  <div class="section">
+    <div class="step-pill"><span class="num">★</span> Contoh Real</div>
+    <h2 class="section-title">STUDI<br>KASUS:<br>THRIFT</h2>
+    <p class="section-desc">Bisnis: <strong>DEADSTOCK.ID</strong> — online thrift store vintage 90s & Y2K. Target: Gen Z 17–25 th. Order via WhatsApp.</p>
+
+    <div class="img-placeholder">
+      <div class="img-placeholder-empty">
+        <div class="icon">🛍️</div>
+        <div class="dir">images/deadstock-mockup.jpg</div>
+        <div class="label">Mockup landing page DEADSTOCK.ID</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTOH 1: Brief ke Gemini -->
+  <div class="section">
+    <div class="step-pill"><span class="num">1</span> Brief → Gemini</div>
+    <h3 class="card-title mb-8">Tulis brief ini ke Gemini Pro:</h3>
+
+    <div class="code-block">
+      <span class="code-label">📋 Prompt untuk Gemini (copy ini)</span>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      <pre><span class="highlight-comment">// Paste ke gemini.google.com — aktifkan mode reasoning/pro</span>
+
+Aku mau buat landing page untuk bisnis thrift store 
+bernama <span class="highlight">DEADSTOCK.ID</span>.
+
+<span class="highlight-green">Detail bisnis:</span>
+- Jual baju vintage 90s & Y2K second-hand
+- Target: Gen Z umur 17-25 tahun di Indonesia
+- Order via WhatsApp, bayar COD/transfer
+- Stok terbatas, rilis per "drop" mingguan
+
+<span class="highlight-green">Tone & Visual:</span>
+- Aesthetic: editorial, raw, film grain, moody bright
+- Warna: off-white background, hitam, accent kuning
+- Font: bold display font + clean sans-serif
+- Mobile-first (80% traffic dari HP)
+
+<span class="highlight-green">Fungsi yang dibutuhkan:</span>
+- Hero section dengan nama brand yang bold
+- Galeri produk dengan harga
+- Tombol order yang langsung buka WhatsApp
+- Section "cara order" 
+- Sticky footer dengan CTA
+
+<span class="highlight-blue">Tolong generate DETAILED UI/UX prompt
+yang bisa langsung aku paste ke Claude AI 
+untuk build HTML/CSS/JS single file website.</span></pre>
+    </div>
+
+    <div class="img-placeholder">
+      <div class="img-placeholder-empty">
+        <div class="icon">✨</div>
+        <div class="dir">images/gemini-reasoning-screenshot.jpg</div>
+        <div class="label">Screenshot Gemini Pro reasoning mode</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTOH 2: Prompt ke Claude -->
+  <div class="section">
+    <div class="step-pill"><span class="num">2</span> Prompt → Claude</div>
+    <h3 class="card-title mb-8">Contoh hasil dari Gemini → Paste ke Claude:</h3>
+
+    <div class="code-block">
+      <span class="code-label">🤖 Prompt Claude (dari Gemini, contoh)</span>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      <pre>Build a <span class="highlight">complete single-file HTML landing page</span> 
+for DEADSTOCK.ID, a Gen Z vintage thrift store.
+
+<span class="highlight-green">Design System:</span>
+- Background: #FAFAF7 (off-white)
+- Text: #0A0A0A (near black)
+- Accent: #E8D84B (yellow)
+- Font: Import Bebas Neue (display) + 
+  DM Sans (body) from Google Fonts
+
+<span class="highlight-green">Sections (in order):</span>
+1. HERO — Full viewport, brand name HUGE in 
+   Bebas Neue, subline italic, CTA button
+   
+2. PRODUCT GRID — 6 product cards with:
+   - Placeholder image (gray box)
+   - Item name, size, price
+   - "ORDER" button per card
+   
+3. HOW TO ORDER — 3 steps numbered, clean layout
+
+4. DROP SCHEDULE — Next drop countdown timer
+
+5. FOOTER — Brand name + WhatsApp button
+
+<span class="highlight-green">Functionality:</span>
+- All ORDER buttons open WhatsApp link:
+  wa.me/6281234567890 with auto-message
+- Smooth scroll between sections
+- Mobile-first CSS (max-width 430px optimal)
+- Subtle scroll animations (IntersectionObserver)
+
+<span class="highlight">Output: Single .html file, all CSS+JS embedded.</span></pre>
+    </div>
+
+    <div class="info-card yellow">
+      <h3 class="card-title">💡 Tips Iterasi di Claude</h3>
+      <p>Setelah Claude generate, kalau ada yang kurang, langsung bilang: "Perbesar font heronya 20%. Ganti warna tombol jadi hitam. Tambahkan section Instagram feed placeholder." Claude ingat konteks sebelumnya.</p>
+    </div>
+
+    <div class="img-placeholder">
+      <div class="img-placeholder-empty">
+        <div class="icon">🖥️</div>
+        <div class="dir">images/claude-build-screenshot.jpg</div>
+        <div class="label">Screenshot Claude Sonnet 4.6 Extended building website</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTOH 3: Deploy -->
+  <div class="section">
+    <div class="step-pill"><span class="num">3</span> Deploy Gratis</div>
+    <h3 class="card-title mb-8">Live dalam 3 menit:</h3>
+
+    <div class="code-block">
+      <span class="code-label">🚀 Deploy ke Netlify (tanpa coding)</span>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      <pre><span class="highlight-green">1. Simpan code dari Claude</span>
+   → File → Save As → index.html
+   → Taruh di folder: /deadstock-id/
+
+<span class="highlight-green">2. Buka netlify.com</span>
+   → Login gratis (bisa pakai GitHub)
+   → Klik "Add new site"
+   → "Deploy manually"
+
+<span class="highlight-green">3. Drag & drop folder</span>
+   → Drag folder /deadstock-id/ ke browser
+   → Tunggu 30 detik
+
+<span class="highlight">4. URL lo jadi:</span>
+   → deadstock-id.netlify.app ✓
+   → Bisa custom domain kapanpun
+
+<span class="highlight-comment">// GitHub Pages juga bisa — lebih proper 
+// tapi butuh basic git knowledge</span></pre>
+    </div>
+
+    <div class="img-placeholder">
+      <div class="img-placeholder-empty">
+        <div class="icon">🌐</div>
+        <div class="dir">images/netlify-deploy-screenshot.jpg</div>
+        <div class="label">Screenshot proses deploy ke Netlify</div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h3 class="card-title">📱 Test Mobile Dulu</h3>
+      <p>Sebelum share ke siapapun: buka website di HP lo sendiri. Cek apakah tombol WhatsApp work, teks tidak terlalu kecil, dan scroll terasa smooth.</p>
+    </div>
+  </div>
+
+  <!-- CHECKLIST FINAL -->
+  <div class="section">
+    <div class="step-pill"><span class="num">✓</span> Checklist</div>
+    <h2 class="section-title">SEBELUM<br>LAUNCH</h2>
+
+    <ul class="checklist">
+      <li>Nomor WhatsApp sudah benar di semua tombol</li>
+      <li>Harga produk sudah updated</li>
+      <li>Test order dari HP → WhatsApp terbuka</li>
+      <li>Logo / nama brand tampil jelas di mobile</li>
+      <li>Loading cepat (< 3 detik)</li>
+      <li>Link share ke Instagram bio sudah dicoba</li>
+      <li>Screenshot untuk konten TikTok sudah</li>
+    </ul>
+
+    <div class="info-card dark mt-16">
+      <h3 class="card-title">🔥 Pro Move</h3>
+      <p>Setelah launch, langsung buat konten TikTok: "POV: aku build website bisnis pakai AI dalam 2 jam." Post proses + hasil. Ini marketing sekaligus bukti sosial.</p>
+    </div>
+  </div>
+
+</div><!-- end view-example -->
+
+<!-- CTA SECTION -->
+<div class="cta-section">
+  <h2>FOLLOW<br><span class="yellow">@ACTIVIST</span><br>INTELLIGENCE</h2>
+  <p>More guides. More moves. Think. Question. Act.</p>
+  <a href="https://www.tiktok.com/@apalahngulikai?_r=1&_t=ZS-94puEfBooz2" target="_blank" class="cta-btn">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.53V6.78a4.85 4.85 0 01-1.02-.09z"/></svg>
+    Follow di TikTok
+  </a>
+  <div class="tiktok-handle"><strong>@activistintelligence</strong></div>
+</div>
+
+<footer>
+  Activist Intelligence · 2026 · Think. Question. Act.
+</footer>
+
+<script>
+  // MODE SWITCHER
+  function switchMode(mode, btn) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('view-' + mode).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: document.querySelector('.hero').offsetHeight + document.querySelector('.site-header').offsetHeight, behavior: 'smooth' });
+  }
+
+  // ACCORDION
+  function toggleAccordion(btn) {
+    const body = btn.nextElementSibling;
+    const isOpen = body.classList.contains('open');
+    // close all
+    document.querySelectorAll('.accordion-body').forEach(b => b.classList.remove('open'));
+    document.querySelectorAll('.accordion-toggle').forEach(b => b.classList.remove('open'));
+    if (!isOpen) {
+      body.classList.add('open');
+      btn.classList.add('open');
+    }
+  }
+
+  // COPY BUTTON
+  function copyCode(btn) {
+    const pre = btn.nextElementSibling;
+    const text = pre.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  // SCROLL PROGRESS BAR
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const progress = (scrollTop / docHeight) * 100;
+    document.getElementById('progressBar').style.width = progress + '%';
+  });
+
+  // INTERSECTION OBSERVER for animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animationPlayState = 'running';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.section').forEach(section => {
+    section.style.animationPlayState = 'paused';
+    observer.observe(section);
+  });
+</script>
+</body>
+</html>
