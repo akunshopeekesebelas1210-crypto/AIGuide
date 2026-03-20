@@ -987,38 +987,31 @@
   <!-- CONTOH 1: Brief ke Gemini -->
   <div class="section">
     <div class="step-pill"><span class="num">1</span> Brief → Gemini</div>
-    <h3 class="card-title mb-8">Tulis brief ini ke Gemini Pro:</h3>
+    <h3 class="card-title mb-8">Ketik ini ke Gemini Pro — casual aja, gak perlu formal:</h3>
+
+    <div class="info-card yellow">
+      <h3 class="card-title">💡 Cara pakainya</h3>
+      <p>Buka <strong>gemini.google.com</strong>, aktifkan mode <strong>Deep Research</strong> atau <strong>2.0 Flash Thinking</strong>. Ketik seperti lagi chat biasa. Gak perlu formatting yang rapi.</p>
+    </div>
 
     <div class="code-block">
-      <span class="code-label">📋 Prompt untuk Gemini (copy ini)</span>
+      <span class="code-label">📋 Prompt ke Gemini (copy & sesuaikan)</span>
       <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-      <pre><span class="highlight-comment">// Paste ke gemini.google.com — aktifkan mode reasoning/pro</span>
+      <pre>hai, aku mau bikin website landing page buat thrift store 
+ku yang namanya DEADSTOCK.ID. tolong bantu buatkan 
+prompt yang bisa aku kasih ke Claude AI biar dia bisa 
+langsung build websitenya.
 
-Aku mau buat landing page untuk bisnis thrift store 
-bernama <span class="highlight">DEADSTOCK.ID</span>.
+ini detailnya:
+- jual baju vintage 90s dan Y2K bekas
+- target pembelinya Gen Z, umur 17-25an
+- order lewat WhatsApp, bayar COD atau transfer
+- tampilan mau yang aesthetic, bold, mobile-friendly
+- butuh: foto produk, harga, tombol order WA, 
+  cara order, dan footer
 
-<span class="highlight-green">Detail bisnis:</span>
-- Jual baju vintage 90s & Y2K second-hand
-- Target: Gen Z umur 17-25 tahun di Indonesia
-- Order via WhatsApp, bayar COD/transfer
-- Stok terbatas, rilis per "drop" mingguan
-
-<span class="highlight-green">Tone & Visual:</span>
-- Aesthetic: editorial, raw, film grain, moody bright
-- Warna: off-white background, hitam, accent kuning
-- Font: bold display font + clean sans-serif
-- Mobile-first (80% traffic dari HP)
-
-<span class="highlight-green">Fungsi yang dibutuhkan:</span>
-- Hero section dengan nama brand yang bold
-- Galeri produk dengan harga
-- Tombol order yang langsung buka WhatsApp
-- Section "cara order" 
-- Sticky footer dengan CTA
-
-<span class="highlight-blue">Tolong generate DETAILED UI/UX prompt
-yang bisa langsung aku paste ke Claude AI 
-untuk build HTML/CSS/JS single file website.</span></pre>
+tolong buatkan prompt detailnya buat Claude ya, 
+yang langsung bisa di-copy paste.</pre>
     </div>
 
     <div class="img-placeholder">
@@ -1032,50 +1025,26 @@ untuk build HTML/CSS/JS single file website.</span></pre>
 
   <!-- CONTOH 2: Prompt ke Claude -->
   <div class="section">
-    <div class="step-pill"><span class="num">2</span> Prompt → Claude</div>
-    <h3 class="card-title mb-8">Contoh hasil dari Gemini → Paste ke Claude:</h3>
+    <div class="step-pill"><span class="num">2</span> Gemini → Claude</div>
+    <h3 class="card-title mb-8">Tinggal paste output dari Gemini ke Claude</h3>
 
-    <div class="code-block">
-      <span class="code-label">🤖 Prompt Claude (dari Gemini, contoh)</span>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-      <pre>Build a <span class="highlight">complete single-file HTML landing page</span> 
-for DEADSTOCK.ID, a Gen Z vintage thrift store.
-
-<span class="highlight-green">Design System:</span>
-- Background: #FAFAF7 (off-white)
-- Text: #0A0A0A (near black)
-- Accent: #E8D84B (yellow)
-- Font: Import Bebas Neue (display) + 
-  DM Sans (body) from Google Fonts
-
-<span class="highlight-green">Sections (in order):</span>
-1. HERO — Full viewport, brand name HUGE in 
-   Bebas Neue, subline italic, CTA button
-   
-2. PRODUCT GRID — 6 product cards with:
-   - Placeholder image (gray box)
-   - Item name, size, price
-   - "ORDER" button per card
-   
-3. HOW TO ORDER — 3 steps numbered, clean layout
-
-4. DROP SCHEDULE — Next drop countdown timer
-
-5. FOOTER — Brand name + WhatsApp button
-
-<span class="highlight-green">Functionality:</span>
-- All ORDER buttons open WhatsApp link:
-  wa.me/6281234567890 with auto-message
-- Smooth scroll between sections
-- Mobile-first CSS (max-width 430px optimal)
-- Subtle scroll animations (IntersectionObserver)
-
-<span class="highlight">Output: Single .html file, all CSS+JS embedded.</span></pre>
+    <div class="info-card dark">
+      <h3 class="card-title">Cara pakainya sesimpel ini:</h3>
+      <p>Gemini sudah generate prompt yang panjang dan detail. <strong>Copy semua teksnya</strong>, buka <strong>claude.ai</strong>, pilih model <strong>Claude Sonnet 4.6</strong>, aktifkan <strong>Extended Thinking</strong>, lalu paste. Selesai.</p>
     </div>
 
-    <div class="info-card yellow">
-      <h3 class="card-title">💡 Tips Iterasi di Claude</h3>
-      <p>Setelah Claude generate, kalau ada yang kurang, langsung bilang: "Perbesar font heronya 20%. Ganti warna tombol jadi hitam. Tambahkan section Instagram feed placeholder." Claude ingat konteks sebelumnya.</p>
+    <ul class="checklist mt-16">
+      <li>Buka claude.ai → New Chat</li>
+      <li>Pilih model: Claude Sonnet 4.6</li>
+      <li>Aktifkan Extended Thinking (toggle di atas input)</li>
+      <li>Paste seluruh prompt dari Gemini</li>
+      <li>Tunggu Claude build — biasanya 1–2 menit</li>
+      <li>Copy hasilnya → simpan sebagai <code style="background:#f0f0e8;padding:1px 5px;border-radius:3px;font-size:12px;">index.html</code></li>
+    </ul>
+
+    <div class="info-card yellow mt-16">
+      <h3 class="card-title">💡 Kalau hasilnya belum pas?</h3>
+      <p>Langsung bilang ke Claude di chat yang sama. Contoh: "perbesar font namanya", "ganti warna tombol jadi hitam", "tambahkan countdown timer". Claude ingat konteks, lo tinggal arahkan.</p>
     </div>
 
     <div class="img-placeholder">
